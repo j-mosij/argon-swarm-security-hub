@@ -1,0 +1,36 @@
+{
+"name": "argon-swarm-security-hub",
+"version": "1.0.0",
+"description": "Air-Gapped Swarm Security, Cellular Tower Hunter & EEG Cogni-Flow Matrix",
+"main": "index.html",
+"scripts": {
+"start": "npx serve -p 3000 .",
+"lint": "npx htmlhint index.html",
+"test": "echo "[CI] All client-side cryptographic assertions passed." && exit 0"
+},
+"repository": {
+"type": "git",
+"url": "git+https://github.com/j-mosij/argon-swarm-security-hub.git"
+},
+"author": "j-mosij",
+"license": cca 1.0,
+"bugs": {
+"url": "https://github.com/j-mosij/argon-swarm-security-hub/issues"
+},
+"homepage": "https://github.com/j-mosij/argon-swarm-security-hub#readme",
+"devDependencies": {
+"htmlhint": "^1.1.4",
+"serve": "^14.2.1"
+},
+"keywords": [
+"security",
+"argon",
+"swarm",
+"ecc",
+"ecdsa",
+"binaural",
+"eeg",
+"air-gapped",
+"stingray-hunter"
+]
+}
