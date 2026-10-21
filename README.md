@@ -1,338 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Argon Swarm: Stingray & Clone Hunter</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --panel-bg: #161b22;
-            --accent-green: #238636;
-            --radar-green: #00ff66;
-            --alert-red: #ff3333;
-            --text-color: #c9d1d9;
-            --border-color: #30363d;
-        }
+Argon Swarm Security Hub & Cogni-Flow Matrix
 
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 95vh;
-        }
+<svg width="180" height="180" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="logoGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00ff66" stop-opacity="0.8" />
+        <stop offset="100%" stop-color="#080c10" stop-opacity="1" />
+      </radialGradient>
+      <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00ff66" />
+        <stop offset="100%" stop-color="#008080" />
+      </linearGradient>
+    </defs>
+    <circle cx="100" cy="100" r="90" fill="url(#logoGrad)" stroke="#00ff66" stroke-width="2" />
+    <path d="M 100 30 L 150 60 L 150 110 C 150 145 100 170 100 170 C 100 170 50 145 50 110 L 50 60 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="6" />
+    <polygon points="100,55 115,85 145,100 115,115 100,145 85,115 55,100 85,85" fill="none" stroke="#00ff66" stroke-width="3" />
+    <circle cx="100" cy="100" r="10" fill="#00ff66" />
+  </svg>
 
-        header {
-            border-bottom: 2px solid var(--accent-green);
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+🛡️ Overview
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            flex-grow: 1;
-            min-height: 0;
-        }
+The Argon Swarm Security Hub is a single-file, air-gapped web engine built for topological swarm defense, cellular IMSI-catcher (Stingray) squashing, EEG binaural brainwave sonification via a Kagome Pyramidal Triad, and local encrypted mesh communications.
 
-        .panel {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+Authored by j-mosij, this repository provides zero-dependency deployment with rigorous client-side Elliptic Curve Cryptography (ECC P-256 / ECDSA).
 
-        /* Radar Styling */
-        .radar-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+✨ Features
 
-        canvas#radarCanvas {
-            background-color: #051105;
-            border-radius: 50%;
-            border: 2px solid var(--radar-green);
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-        }
+📡 Stingray Radar & Cellular Hunter: Real-time canvas radar for detecting rogue cellular towers and squashing MitM vectors.
 
-        /* Controls & Logs */
-        .controls {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+🧠 EEG Flow State & Kagome Triad Engine: Dual-oscillator binaural sonification synthesizer supporting Alpha (10Hz), Theta (6Hz), Beta (18Hz), and Gamma Cogni-Flow (40Hz).
 
-        button {
-            background-color: #21262d;
-            color: var(--radar-green);
-            border: 1px solid var(--radar-green);
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: bold;
-        }
+📐 Mathematical Origami Automata Matrix: Continuous 2D/3D folding geometric lattice with step sonification feedback.
 
-        button:hover {
-            background-color: var(--radar-green);
-            color: #000;
-        }
+💬 3-Part Encrypted Local Swarm Chat: ECDSA-signed headers, PBKDF2 payload ciphers, and salt footers via WebCrypto API.
 
-        button.danger {
-            color: var(--alert-red);
-            border-color: var(--alert-red);
-        }
+🕹️ Dual Themes: Cyber Dark HUD and Retro Windows ME / MS-DOS Vintage interface.
 
-        button.danger:hover {
-            background-color: var(--alert-red);
-            color: #fff;
-        }
+🔒 Air-Gapped Security Enforcement: Nullified network wrappers (fetch, XHR, Worker), memory sanitization loops, and fingerprint protection.
 
-        .log-box {
-            flex-grow: 1;
-            background-color: #000;
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            margin-top: 10px;
-            overflow-y: auto;
-            font-size: 0.85em;
-        }
+🚀 Quick Start
 
-        .log-entry { margin-bottom: 4px; }
-        .log-alert { color: var(--alert-red); font-weight: bold; }
-        .log-info { color: var(--radar-green); }
+Option 1: Direct Browser Launch
 
-        /* Chat Styling */
-        .chat-messages {
-            flex-grow: 1;
-            background-color: #0d1117;
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+Since the application is zero-dependency single-file HTML, simply clone and open:
 
-        .message {
-            background: #21262d;
-            padding: 8px 12px;
-            border-radius: 6px;
-            max-width: 80%;
-        }
+git clone https://github.com/j-mosij/argon-swarm-security-hub.git
+cd argon-swarm-security-hub
+open index.html
 
-        .message.system {
-            align-self: center;
-            background: transparent;
-            color: #8b949e;
-            font-style: italic;
-        }
 
-        .chat-input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
+Option 2: Local Development Server
 
-        input[type="text"] {
-            flex-grow: 1;
-            background-color: #0d1117;
-            border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 8px;
-            border-radius: 4px;
-            font-family: inherit;
-        }
-    </style>
-</head>
-<body>
+# Install dependencies
+npm install
 
-    <header>
-        <h2>🛡️ ARGON SWARM // TURING-COMPLETE CELLULAR AGENT</h2>
-        <div>STATUS: <span id="swarm-status" style="color:var(--radar-green)">ACTIVE NET</span></div>
-    </header>
+# Start local dev server
+npm start
 
-    <div class="dashboard">
-        <!-- Panel 1: Radar & Squasher -->
-        <div class="panel">
-            <h3>📡 STINGRAY RADAR & CELLULAR HUNTER</h3>
-            <div class="radar-container">
-                <canvas id="radarCanvas" width="280" height="280"></canvas>
-            </div>
-            <div class="controls">
-                <button onclick="scanNetwork()">Scan Frequencies</button>
-                <button onclick="simulateStingray()" class="danger">Inject Stingray Signal</button>
-                <button onclick="squashThreats()" class="danger">Squash & Purify</button>
-            </div>
-            <h4>System Telemetry & Scrubbing Log</h4>
-            <div id="telemetryLog" class="log-box"></div>
-        </div>
 
-        <!-- Panel 2: Secure Chat & Encryption -->
-        <div class="panel">
-            <h3>💬 3-PART ENCRYPTED SWARM CHAT</h3>
-            <div id="chatMessages" class="chat-messages">
-                <div class="message system">Node initialized. 3-Part Argon Net Key Active.</div>
-            </div>
-            <div class="chat-input-group">
-                <input type="text" id="chatInput" placeholder="Broadcast encrypted payload..." onkeydown="if(event.key==='Enter') sendMessage()">
-                <button onclick="sendMessage()">Transmit</button>
-            </div>
-        </div>
-    </div>
+🏗️ Architecture
 
-    <script>
-        // --- 1. RADAR & TELEMETRY ENGINE ---
-        const canvas = document.getElementById('radarCanvas');
-        const ctx = canvas.getContext('2d');
-        const radius = canvas.width / 2;
-        let sweepAngle = 0;
-        let targets = [];
+argon-swarm-security-hub/
+├── index.html              # Main single-file application
+├── package.json            # Node metadata & dev scripts
+├── .gitignore              # Version control exclusions
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml       # Automated GitHub Actions CI/CD pipeline
+└── README.md               # Project documentation
 
-        function drawRadar() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw Radar Circles
-            ctx.strokeStyle = '#005522';
-            ctx.lineWidth = 1;
-            for (let i = 1; i <= 3; i++) {
-                ctx.beginPath();
-                ctx.arc(radius, radius, (radius / 3) * i - 2, 0, 2 * Math.PI);
-                ctx.stroke();
-            }
+🔒 Security Hardening
 
-            // Draw Crosshairs
-            ctx.beginPath();
-            ctx.moveTo(radius, 0); ctx.lineTo(radius, canvas.height);
-            ctx.moveTo(0, radius); ctx.lineTo(canvas.width, radius);
-            ctx.stroke();
+Note on Public Safety & Secrets: This codebase contains NO hardcoded secrets, API tokens, or private credentials. All cryptographic keys are generated ephemeral-in-memory via client-side window.crypto.subtle.
 
-            // Draw Sweep Line
-            const sweepX = radius + radius * Math.cos(sweepAngle);
-            const sweepY = radius + radius * Math.sin(sweepAngle);
-            ctx.strokeStyle = '#00ff66';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(radius, radius);
-            ctx.lineTo(sweepX, sweepY);
-            ctx.stroke();
+Network Isolation: Blocks unexpected outbound network traffic at runtime.
 
-            // Draw Targets
-            targets.forEach(target => {
-                ctx.fillStyle = target.type === 'stingray' ? '#ff3333' : '#00ff66';
-                ctx.beginPath();
-                ctx.arc(target.x, target.y, 5, 0, 2 * Math.PI);
-                ctx.fill();
-                
-                if(target.type === 'stingray') {
-                    ctx.strokeStyle = '#ff3333';
-                    ctx.arc(target.x, target.y, 9, 0, 2 * Math.PI);
-                    ctx.stroke();
-                }
-            });
+Auto-Scrubber: 10-second background memory purge loop to clear detached nodes and verify ECC signature integrity.
 
-            sweepAngle += 0.03;
-            requestAnimationFrame(drawRadar);
-        }
-        drawRadar();
+Air-Gap Compliance: Designed to run entirely offline on air-gapped hardware.
 
-        function logTelemetry(msg, isAlert = false) {
-            const logBox = document.getElementById('telemetryLog');
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${isAlert ? 'log-alert' : 'log-info'}`;
-            entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            logBox.appendChild(entry);
-            logBox.scrollTop = logBox.scrollHeight;
-        }
-
-        function scanNetwork() {
-            logTelemetry("Scanning cellular band (IMSI Catcher / IMSI Guard Check)...");
-            if (targets.length === 0) {
-                targets.push({
-                    x: radius + (Math.random() - 0.5) * 180,
-                    y: radius + (Math.random() - 0.5) * 180,
-                    type: 'friendly'
-                });
-                logTelemetry("Swarm Node verified via Argon Proof-of-Work.");
-            }
-        }
-
-        function simulateStingray() {
-            const x = radius + (Math.random() - 0.5) * 160;
-            const y = radius + (Math.random() - 0.5) * 160;
-            targets.push({ x, y, type: 'stingray' });
-            logTelemetry("⚠️ WARNING: Rogue Tower/IMSI Catcher detected! (MitM attempt)", true);
-            logTelemetry("🚨 Downgrade attack flagged (2G/3G force detected).", true);
-        }
-
-        function squashThreats() {
-            const rogueCount = targets.filter(t => t.type === 'stingray').length;
-            if (rogueCount > 0) {
-                targets = targets.filter(t => t.type !== 'stingray');
-                logTelemetry(`⚡ SQUASH COMPLETE: Terminated ${rogueCount} rogue connection(s).`);
-                logTelemetry("🧹 PURIFICATION: Swarm network topology cleansed.");
-            } else {
-                logTelemetry("No rogue towers detected to squash.");
-            }
-        }
-
-        // --- 2. THREE-PART ENCRYPTION & SCRUBBING SIMULATOR ---
-        // Part 1: Salt Hash | Part 2: Payload Cipher | Part 3: Topological Proof
-        async function threePartEncrypt(text) {
-            const encoder = new TextEncoder();
-            const salt = crypto.getRandomValues(new Uint8Array(16));
-            
-            // Generate Key via Argon-like Hash Simulation (WebCrypto SHA-256 derivation)
-            const keyData = encoder.encode(text + Array.from(salt).join(''));
-            const hashBuffer = await crypto.subtle.digest('SHA-256', keyData);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-            return {
-                part1_salt: Array.from(salt).map(b => b.toString(16)).join(''),
-                part2_cipher: btoa(text), // Base64 simulated cipher
-                part3_topoProof: hexHash.substring(0, 16)
-            };
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const chatMessages = document.getElementById('chatMessages');
-
-            // Encrypt
-            const encrypted = await threePartEncrypt(text);
-
-            // Display sent message
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message';
-            msgDiv.innerHTML = `<strong>You:</strong> ${text}<br>
-                <small style="color:#8b949e">Encrypted Parts: [Salt: ${encrypted.part1_salt.substring(0,6)}...] [Cipher: ${encrypted.part2_cipher}] [Proof: ${encrypted.part3_topoProof}]</small>`;
-            
-            chatMessages.appendChild(msgDiv);
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            logTelemetry(`Payload transmitted. Swarm Proof Token: ${encrypted.part3_topoProof}`);
-        }
-    </script>
-</body>
-</html>
+📄 License
