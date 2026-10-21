@@ -1,0 +1,40 @@
+STREAMING_CHUNK:Configuring gitignore exclusions...
+
+Node & NPM
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+Environment & Secrets (Guardrail for Security)
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+*.p12
+
+OS Generated Files
+
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+IDE & Editor files
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+Build & Test Logs
+
+dist/
+build/
+coverage/
+.snyk
